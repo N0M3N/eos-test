@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  span {
+    background-color: var(--secondaryColor);
+    color: var(--secondaryColorContrast);
+    padding: 4px 8px;
+    border-radius: 16px;
+    cursor: pointer;
+
+    &.selected {
+      background-color: var(--tertiaryColor);
+      color: var(--tertiaryColorContrast);
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import { delay, Observable, of } from "rxjs";
-import { ID, IResult } from "../../models";
-import { IStorage } from "./i-storage";
+import { ID, IResult } from "../models";
+import { IDataService } from "./i-data.service";
 import { v4 } from 'uuid';
 import { inject } from "@angular/core";
 import { IStorageSettings } from "./storage.settings";
 
-export class LocalListStorage<T extends ID> implements IStorage<T> {
+export class LocalListStorage<T extends ID> implements IDataService<T> {
   protected settings = inject(IStorageSettings);
 
   constructor(protected readonly key: string) { };
@@ -21,7 +21,7 @@ export class LocalListStorage<T extends ID> implements IStorage<T> {
     });
   }
 
-  add(item: T): Observable<IResult<T>> {
+  create(item: T): Observable<IResult<T>> {
     return this.applySettings(() => {
       item.id = v4()
       const key = this.getKey(item);
@@ -40,7 +40,7 @@ export class LocalListStorage<T extends ID> implements IStorage<T> {
     });
   }
 
-  remove(item: T): Observable<IResult<boolean>> {
+  delete(item: T): Observable<IResult<boolean>> {
     return this.applySettings(() => {
       const key = this.getKey(item);
       if (!localStorage.getItem(key))

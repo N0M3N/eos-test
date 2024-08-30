@@ -1,5 +1,5 @@
 import { InjectionToken } from "@angular/core";
-import { IStorage } from "../storage";
 import { ITeam } from "../../models";
+import { IDataService } from "../i-data.service";
 
-export const TEAMS_STORAGE = new InjectionToken<IStorage<ITeam>>("TEAMS_STORAGE");
+export const TEAMS_SERVICE = new InjectionToken<IDataService<ITeam>>("TEAMS_SERVICE");

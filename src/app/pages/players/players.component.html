@@ -1,0 +1,21 @@
+<h2>Team</h2>
+
+<div class="list">
+  @if(loading()){
+  <app-loader></app-loader>
+  } @else {
+  @for(player of players(); track player.id) {
+  <app-card>
+    <div class="card-content">
+      <span>
+        {{ player.firstName }}
+        {{ player.lastName }}
+      </span>
+      <span>{{ player.position }}</span>
+    </div>
+  </app-card>
+  } @empty {
+  <span>No teams to show</span>
+  }
+  }
+</div>

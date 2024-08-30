@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "SUSE", sans-serif;
+  font-optical-sizing: auto;
+  font-size: medium;
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-size: larger;
+}

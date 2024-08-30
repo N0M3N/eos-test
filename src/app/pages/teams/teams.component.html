@@ -1,0 +1,15 @@
+<h2>Teams</h2>
+
+<div class="list">
+  @if(loading()){
+  <app-loader></app-loader>
+  } @else {
+  @for(team of teams(); track team.id) {
+  <app-card (click)="openTeam(team)">
+    {{ team.name }}
+  </app-card>
+  } @empty {
+  <span>No teams to show</span>
+  }
+  }
+</div>

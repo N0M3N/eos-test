@@ -1,0 +1,3 @@
+@for(theme of themes(); track theme) {
+<span (click)="changeTheme(theme)" [class.selected]="theme === selectedTheme()">{{ theme }}</span>
+}

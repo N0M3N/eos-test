@@ -1,5 +1,5 @@
 import { InjectionToken } from "@angular/core";
-import { IStorage } from "../storage";
 import { IPlayer } from "../../models";
+import { IDataService } from "../i-data.service";
 
-export const PLAYERS_STORAGE = new InjectionToken<IStorage<IPlayer>>("PLAYERS_STORAGE");
+export const PLAYERS_SERVICE = new InjectionToken<IDataService<IPlayer>>("PLAYERS_SERVICE");
