@@ -2,7 +2,7 @@ import { APP_INITIALIZER, ApplicationConfig, provideExperimentalZonelessChangeDe
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
-import { IDataService, IStorageSettings, LocalStorageDataService } from './services';
+import { IDataService, IStorageSettings, LocalStorageDataService, NotificationsService } from './services';
 import { TEAMS_SERVICE, PLAYERS_SERVICE } from './services/tokens';
 import { IPlayer, ITeam } from './models';
 import { seedData } from './utils/seedData';
@@ -14,9 +14,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     {
       provide: APP_INITIALIZER,
-      useFactory: (ts: IDataService<ITeam>, ps: IDataService<IPlayer>) => seedData(ts, ps),
+      useFactory: (ts: IDataService<ITeam>, ps: IDataService<IPlayer>, ns: NotificationsService) => seedData(ts, ps, ns),
       multi: true,
-      deps: [TEAMS_SERVICE, PLAYERS_SERVICE]
+      deps: [TEAMS_SERVICE, PLAYERS_SERVICE, NotificationsService]
     },
     {
       provide: IStorageSettings,

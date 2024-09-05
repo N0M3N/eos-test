@@ -1,4 +1,5 @@
-import { signal } from "@angular/core";
+import { inject, signal } from "@angular/core";
+import { NotificationsService } from "./notifications.service";
 
 export interface ITheme {
   name: string;
@@ -17,6 +18,8 @@ export interface ITheme {
 }
 
 export class ThemingService {
+  notificationSvc = inject(NotificationsService);
+
   theme = signal<ITheme | null>(null);
   themes = signal<ITheme[]>([{
     name: 'Green',
@@ -54,9 +57,11 @@ export class ThemingService {
     const theme = themes.find(x => x.name === name);
     if (theme) {
       this.theme.set(theme);
+      this.notificationSvc.show({ text: 'Theme changed to ' + name, type: 'info' });
       return theme;
     } else {
       this.theme.set(themes[0]);
+      this.notificationSvc.show({ text: 'Theme changed to default theme ' + themes[0].name, type: 'info' });
       return themes[0];
     }
   }

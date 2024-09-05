@@ -63,7 +63,7 @@ export class TeamsComponent implements OnInit {
         }
       }),
       catchError(err => {
-        console.error(err);
+        this.notificationsSvc.show({ text: err.message, type: 'error' });
         return of([]);
       }),
       tap(() => this.loading.set(false))

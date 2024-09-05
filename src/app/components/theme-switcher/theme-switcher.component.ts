@@ -16,7 +16,6 @@ export class ThemeSwitcherComponent implements OnInit {
 
   ngOnInit() {
     const theme = localStorage.getItem('theme');
-    console.log(theme);
     if (theme)
       this.themeSvc.setTheme(theme);
     else

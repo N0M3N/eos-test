@@ -1,16 +1,16 @@
-import { IDataService } from "../services";
+import { IDataService, NotificationsService } from "../services";
 import { IPlayer, ITeam } from "../models";
-import { catchError, combineLatest, finalize, firstValueFrom, merge, of, switchMap, tap } from "rxjs";
+import { catchError, combineLatest, firstValueFrom, of, switchMap, tap } from "rxjs";
 
-export function seedData(teamsStorage: IDataService<ITeam>, playersStorage: IDataService<IPlayer>) {
+export function seedData(teamsStorage: IDataService<ITeam>, playersStorage: IDataService<IPlayer>, notificationsSvc: NotificationsService) {
   return async () => {
     const dataSeeded = localStorage.getItem('DATA_SEEDED') === '1';
     if (dataSeeded) {
-      console.log('seed already run - skipping');
+      notificationsSvc.show({ text: 'Seed already ran - skipping', type: 'info' });
       return of(null);
     }
 
-    console.log('seeding data');
+    notificationsSvc.show({ text: 'Seeding data', type: 'info' });
     return await firstValueFrom(
       combineLatest([teamsStorage.create({ name: 'SG1' }), teamsStorage.create({ name: 'SG2' })]).pipe(
         switchMap(([team1, team2]) => {
@@ -28,10 +28,10 @@ export function seedData(teamsStorage: IDataService<ITeam>, playersStorage: IDat
         }),
         tap(() => {
           localStorage.setItem('DATA_SEEDED', '1');
-          console.log('seed completed');
+          notificationsSvc.show({ text: 'Seed completed', type: 'info' });
         }),
         catchError(err => {
-          console.error('seed failed');
+          notificationsSvc.show({ text: 'Seed failed', type: 'error' });
           localStorage.clear();
           return of(err);
         })
