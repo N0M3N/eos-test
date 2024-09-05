@@ -1,9 +1,9 @@
 import { Observable } from "rxjs";
-import { IResult } from "../models";
+import { ID, IResult } from "../models";
 
-export interface IDataService<T> {
+export interface IDataService<T extends ID> {
   get(filter?: (item: T) => boolean): Observable<IResult<T[]>>;
   create(item: T): Observable<IResult<T>>;
   update(item: T): Observable<IResult<T>>;
-  delete(item: T): Observable<IResult<boolean>>;
+  delete(item: ID): Observable<IResult<boolean>>;
 }

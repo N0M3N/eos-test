@@ -4,12 +4,44 @@
   gap: 10px;
 
   app-card {
-    cursor: pointer;
-
     .card-content {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      align-items: center;
+      gap: 50px;
+
+      .name {
+        flex-grow: 1;
+      }
+
+      .commands {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+
+        fa-icon {
+          font-size: larger;
+        }
+      }
     }
   }
+}
+
+.filter {
+  position: relative;
+
+  fa-icon {
+    position: absolute;
+    right: 5px;
+    bottom: 50%;
+    opacity: .3;
+  }
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding-top: 20px;
 }

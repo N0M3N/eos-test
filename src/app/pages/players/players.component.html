@@ -1,21 +1,93 @@
-<h2>Team</h2>
+@let team = team$ | async;
+@if(team){
+<div>
+  <h2>Team {{ team!.name }}</h2>
+</div>
+
+<div class="filter">
+  <input type="text" [value]="filter$ | async" (keyup)="onFilterChange($event)"
+    placeholder="Serach by name or position">
+  <fa-icon [icon]="faSearch"></fa-icon>
+</div>
 
 <div class="list">
-  @if(loading()){
-  <app-loader></app-loader>
-  } @else {
-  @for(player of players(); track player.id) {
+
+  @for(player of players$ | async; track player.id) {
   <app-card>
     <div class="card-content">
-      <span>
+      <span class="name">
         {{ player.firstName }}
         {{ player.lastName }}
       </span>
-      <span>{{ player.position }}</span>
+      <span class="position">{{ player.position }}</span>
+      <div class="commands">
+        <button class="link" (click)="onEdit(player)">
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </button>
+        <button class="link" (click)="onDelete(player)">
+          <fa-icon [icon]="faClose"></fa-icon>
+        </button>
+      </div>
     </div>
   </app-card>
   } @empty {
-  <span>No teams to show</span>
-  }
+  <span>No players to show</span>
   }
 </div>
+}
+@else if(!loading()) {
+<span>Team with ID {{ id() }} not found</span>
+}
+
+@if(loading()){
+<app-loader></app-loader>
+}
+
+<button class="fab left" (click)="onBack()">
+  <fa-icon [icon]="faArrowLeft"></fa-icon>
+</button>
+
+<button class="fab right" (click)="onAdd()">
+  <fa-icon [icon]="faAdd"></fa-icon>
+</button>
+
+<app-dialog [(open)]="editDialogVisible">
+  <div>
+    <label>First name</label>
+    <input type="text" [(ngModel)]="firstName">
+  </div>
+  <div>
+    <label>Last name</label>
+    <input type="text" [(ngModel)]="lastName">
+  </div>
+  <div>
+    <label>Position</label>
+    <input type="text" [(ngModel)]="position">
+  </div>
+  <div class="button-row">
+    <button (click)="editDialogVisible.set(false)" class="secondary">
+      <fa-icon [icon]="faClose"></fa-icon>
+      <span>Cancel</span>
+    </button>
+    <button (click)="onSave()">
+      <fa-icon [icon]="faSave"></fa-icon>
+      <span>Save</span>
+    </button>
+  </div>
+</app-dialog>
+
+<app-dialog [(open)]="confirmDialogVisible">
+  <div>
+    Are you sure you want to delete player {{ firstName()}} {{ lastName() }}?
+  </div>
+  <div class="button-row">
+    <button (click)="confirmDialogVisible.set(false)" class="secondary">
+      <fa-icon [icon]="faClose"></fa-icon>
+      <span>Cancel</span>
+    </button>
+    <button (click)="onDeleteConfirmed()">
+      <fa-icon [icon]="faTrash"></fa-icon>
+      <span>Delete</span>
+    </button>
+  </div>
+</app-dialog>

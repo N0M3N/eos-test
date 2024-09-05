@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 import { inject } from "@angular/core";
 import { IStorageSettings } from "./storage.settings";
 
-export class LocalListStorage<T extends ID> implements IDataService<T> {
+export class LocalStorageDataService<T extends ID> implements IDataService<T> {
   protected settings = inject(IStorageSettings);
 
   constructor(protected readonly key: string) { };

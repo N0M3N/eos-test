@@ -1,15 +1,19 @@
 :host {
   display: grid;
-  min-height: 100vh;
+  height: 100vh;
   grid-template-rows: max-content 1fr max-content;
   background-color: var(--backgroundColor);
   color: var(--textColor);
+
+  --max-content-width: 700px;
+  --inline-padding: 80px;
 
   header,
   footer {
     background-color: var(--primaryColor);
     color: var(--primaryColorContrast);
-    padding: 10px 40px;
+    padding: 10px var(--inline-padding);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .4);
   }
 
   header {
@@ -18,14 +22,15 @@
 
     #header-content {
       width: 100%;
-      max-width: 700px;
+      max-width: var(--max-content-width);
       display: flex;
+      gap: 20px;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
 
       h1 {
-        font-size: larger;
+        font-size: x-large;
         text-transform: uppercase;
       }
     }
@@ -33,13 +38,21 @@
 
   footer {
     text-align: center;
-    font-size: smaller;
+
+    a {
+      font-size: smaller;
+    }
   }
 
   #content {
-    padding: 20px;
-    width: 100%;
-    max-width: 700px;
+    padding-block: 20px;
+    width: calc(100% - 2 * var(--inline-padding));
+    max-width: var(--max-content-width);
     justify-self: center;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }

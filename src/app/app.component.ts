@@ -2,11 +2,12 @@ import { Component, HostBinding, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemingService } from './services/theming.service';
 import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
+import { NotificationsComponent } from "./components/notifications/notifications.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ThemeSwitcherComponent],
+  imports: [RouterOutlet, ThemeSwitcherComponent, NotificationsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -1,0 +1,6 @@
+@let notifications = notifications$ | async;
+@for(notification of notifications; track notification.id) {
+<div class="notification" [ngClass]="notification.type">
+  {{ notification.text }}
+</div>
+}

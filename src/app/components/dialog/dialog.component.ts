@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-dialog',
@@ -8,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './dialog.component.scss'
 })
 export class DialogComponent {
+  open = input<boolean>(false);
+  openChange = output<boolean>()
 
+  close() {
+    this.openChange.emit(false);
+  }
 }

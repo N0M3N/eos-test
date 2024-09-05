@@ -40,7 +40,7 @@ export class ThemingService {
     primaryColorContrast: 'black',
 
     secondaryColor: '#7b9ea8',
-    secondaryColorContrast: 'black',
+    secondaryColorContrast: 'white',
 
     tertiaryColor: '#6fd08c',
     tertiaryColorContrast: 'black',

@@ -1,15 +1,70 @@
 <h2>Teams</h2>
 
+<div class="filter">
+  <input type="text" [value]="filter$ | async" (keyup)="onFilterChange($event)" placeholder="Serach by name or player">
+  <fa-icon [icon]="faSearch"></fa-icon>
+</div>
+
 <div class="list">
   @if(loading()){
   <app-loader></app-loader>
-  } @else {
-  @for(team of teams(); track team.id) {
-  <app-card (click)="openTeam(team)">
-    {{ team.name }}
+  }
+
+  @for(team of teams$ | async; track team.id) {
+  <app-card>
+    <div class="card-content">
+      <button class="link name" (click)="openTeam(team)">
+        <fa-icon [icon]="faArrowRightToBracket"></fa-icon>
+        <span>{{ team.name }}</span>
+      </button>
+      <div class="commands">
+        <button class="link" (click)="onEdit(team)">
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </button>
+        <button class="link" (click)="onDelete(team)">
+          <fa-icon [icon]="faClose"></fa-icon>
+        </button>
+      </div>
+    </div>
   </app-card>
   } @empty {
   <span>No teams to show</span>
   }
-  }
 </div>
+
+<button class="fab right" (click)="onAdd()">
+  <fa-icon [icon]="faAdd"></fa-icon>
+</button>
+
+<app-dialog [(open)]="editDialogVisible">
+  <div>
+    <label>Name</label>
+    <input type="text" [(ngModel)]="name">
+  </div>
+  <div class="button-row">
+    <button (click)="editDialogVisible.set(false)" class="secondary">
+      <fa-icon [icon]="faClose"></fa-icon>
+      <span>Cancel</span>
+    </button>
+    <button (click)="onSave()">
+      <fa-icon [icon]="faSave"></fa-icon>
+      <span>Save</span>
+    </button>
+  </div>
+</app-dialog>
+
+<app-dialog [(open)]="confirmDialogVisible">
+  <div>
+    Are you sure you want to delete team {{ name()}}?
+  </div>
+  <div class="button-row">
+    <button (click)="confirmDialogVisible.set(false)" class="secondary">
+      <fa-icon [icon]="faClose"></fa-icon>
+      <span>Cancel</span>
+    </button>
+    <button (click)="onDeleteConfirmed()">
+      <fa-icon [icon]="faTrash"></fa-icon>
+      <span>Delete</span>
+    </button>
+  </div>
+</app-dialog>

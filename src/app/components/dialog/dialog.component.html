@@ -1,1 +1,7 @@
-<p>dialog works!</p>
+@if(open()){
+<div class="backdrop" (click)="close()">
+</div>
+<dialog [open]="true">
+  <ng-content></ng-content>
+</dialog>
+}
